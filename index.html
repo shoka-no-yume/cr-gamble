@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Do you like GambleBot? Do you want to lose your ROY without losing your ROY? Here is the way!">
+    <meta name="keywords" content="Crypto, Royale, Nano, ROY, GambleBot, Gamble, gambling, addiction, alternative, cure">
+    <meta name="author" content="ROY_TO_THE_MOON">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Gamble ROY</title>
+</head>
+<body>
+    <div id="app" v-cloak>
+        <svg class="logo" viewbox="0 0 10 1.3">
+            <text id="desktop-logo" x="5" y="1" text-anchor="middle" font-size="1" fill="none" stroke-width=".015" stroke="#000" font-family="sans-serif">{{title}}</text>
+            <text id="mobile-logo" x="5" y="1" text-anchor="middle" font-size="1" fill="none" stroke-width=".030" stroke="#000" font-family="sans-serif">{{title}}</text>
+        </svg>
+        <div>
+            <p>Gamble your ROY safely</p>
+            <div v-if="balance==-1">
+                <p>How much ROY do you have or how much ROY would you like to have at the beginning of the session?</p>
+                <p><label>Starting balance: </label><input v-model="roy_init" type="number" min="1"></p>
+                <button @click="start(roy_init)">Let's go</button>
+            </div>
+            <div v-if="balance>=0">
+                <div v-if="lost_all">
+                    <h1>You lost all your ROY (not really)</h1>
+                    <button @click="reset_game()">Reset the game</button>
+                </div>
+                <div v-if="!lost_all">
+                    <h1 class="balance">Balance: {{balance}} ROY</h1>
+                    <p>{{info}}</p>
+                    <p>
+                        <img class="card" v-for="(card, index) in cards" :src="'img/'+card+'.png'" @click="make_bet(index)">
+                    </p>
+                    <h2 v-if="allow_bet">Bet: <input v-model="bet" type="number" min="1"></h2>
+                    <h2 v-if="!allow_bet">Bet: {{bet}} <button @click="play_again()">Play again</button></h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/vue@3.0.5/dist/vue.global.prod.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
